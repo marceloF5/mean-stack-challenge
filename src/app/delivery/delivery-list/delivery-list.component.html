@@ -1,0 +1,27 @@
+<p>Total de clientes: <span>{{ totalCustomers }}</span>; Peso total: <span>{{ totalWeight }}kg</span>;
+  Ticket Médio*: <span> {{ avg }}</span></p>
+<table class="table table-hover">
+  <thead>
+      <tr>
+          <th>Nome</th>
+          <th>Rua</th>
+          <th>Cidade</th>
+          <th>País:</th>
+          <th>Peso:</th>
+          <th>Lat:</th>
+          <th>Lng:</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let d of deliveries">
+          <td>{{d.customerName}}</td>            
+          <td>{{d.address.streetName}}, {{d.address.numberHouse}} - {{d.address.neighborhood}}</td>
+          <td>{{d.address.city}}</td>
+          <td>{{d.address.state}}</td>
+          <td>{{d.weight}}</td>
+          <td>{{d.address.geo.lat}}</td>
+          <td>{{d.address.geo.lon}}</td>
+      </tr>
+  </tbody>
+</table>
+<p>*Peso Total/Total de Clientes</p>

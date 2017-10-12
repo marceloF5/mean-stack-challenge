@@ -1,0 +1,33 @@
+
+<form name="deliveryForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="form-group">
+        <input type="text" class="form-control" name="customerName" placeholder="Nome do cliente" ngModel #inputNameCustomer>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="weight" placeholder="Peso da entrega" ngModel #inputWeight>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <input type="text" class="form-control" name="street" placeholder="Endereço do cliente" ngModel #inputAddress>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" (click)="onFindLocation()">Buscar</button>
+            </span>
+        </div>
+    </div>    
+    <div class="form-group row">        
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="lat" placeholder="Latitude" disabled ngModel  #inputLat>
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="lon" placeholder="Longitude" disabled ngModel #inputLon>
+        </div>        
+    </div>
+
+    <div class="form-group">
+        
+        <button type="submit" class="btn btn-success btn-block" name="send">CADASTRAR CLIENTE</button>    
+        <button type="button" class="btn btn-danger btn-block" name="delete" (click)="onDelRegister()">RESETAR CADASTRO</button>
+        
+    </div>
+</form>
+
