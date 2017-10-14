@@ -22,24 +22,27 @@ export class DeliveryListComponent implements OnInit {
   private makers: Maker[] = [];
 
   constructor(private deliveriesService: DeliveryService) {
-    //this.makers.push({name: 'Company One', lat: -23.6954834, lon: -46.5805618, draggable: false});
-    //this.makers.push({name: 'Company Two', lat: -23.5647577, lon: -46.6518495, draggable: false});
+
   }
 
   ngOnInit() {
 
     this.deliveriesService.eventEmitterDelete.subscribe(
       data => {
-        this.deliveries = data;
+        console.log('ENTROU NO DELETE');
+        this.deliveries = [];
         this.makers = [];
         this.totalWeight = 0;
         this.totalCustomers = 0;
         this.avg = 0;
       });
 
-    this.deliveriesService.eventEmitterCreate.subscribe(
+    this.deliveriesService.eventEmitterSelect.subscribe(
       data => {
-        this.deliveries = data;
+        console.log('ENTROU NO SELECT');
+        console.log(data[1]);
+        console.log(data.data.length);
+        this.deliveries = data.data;
         this.totalCustomers = this.deliveries.length;
         this.totalWeight = 0;
         for (let i = 0; i < this.deliveries.length; i++) {
@@ -54,15 +57,13 @@ export class DeliveryListComponent implements OnInit {
         this.avg = this.totalWeight / this.totalCustomers;
       });
 
-    this.deliveries = this.deliveriesService.getAllDeliveries();
+    this.deliveriesService.eventEmitterCreate.subscribe(
+      data => {
+        console.log('ENTROU NO CREATE');
+        this.deliveriesService.getAllDeliveries();
+      });
 
-    // tslint:disable-next-line:forin
-    for (let i = 0; i < this.deliveries.length; i++) {
-      this.totalWeight += this.deliveries[i].weight;
-    }
-
-    this.avg = this.totalWeight / this.totalCustomers;
-
+    this.deliveriesService.getAllDeliveries();
   }
 
 }

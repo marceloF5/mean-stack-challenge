@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Http } from '@angular/http';
 
 import { Geo } from './delivery-class/geo';
 import { Address } from './delivery-class/address';
@@ -11,26 +12,40 @@ export class DeliveryService {
   private addresses: Address[] = [];
   private deliveries: Delivery[] = [];
 
-  eventEmitterDelete = new EventEmitter<Delivery[]>();
-  eventEmitterCreate = new EventEmitter<Delivery[]>();
+  eventEmitterDelete = new EventEmitter();
+  eventEmitterCreate = new EventEmitter();
+  eventEmitterSelect = new EventEmitter<Delivery[]>();
 
-  constructor() {
+  constructor(private http: Http) {
 
   }
 
   getAllDeliveries() {
-    return this.deliveries;
+    this.http
+      .get('http://localhost:3000/delivery')
+      .map(data => data.json())
+      .subscribe(data => {
+        console.log(data);
+        this.eventEmitterSelect.emit(data);
+      });
   }
 
   saveDelivery(delivery) {
-    this.deliveries.push(delivery);
-    this.eventEmitterCreate.emit(this.deliveries);
+    this.http
+        .post('http://localhost:3000/delivery', delivery)
+        .map(data => data.json())
+        .subscribe(data => {
+          this.eventEmitterCreate.emit();
+        });
   }
 
   delAllDeliveries() {
-    console.log(this.deliveries);
-    this.deliveries = [];
-    this.eventEmitterDelete.emit(this.deliveries);
+    this.http
+        .delete('http://localhost:3000/delivery')
+        .map(data => data.json())
+        .subscribe(data => {
+          this.eventEmitterDelete.emit();
+        });
   }
 
 }

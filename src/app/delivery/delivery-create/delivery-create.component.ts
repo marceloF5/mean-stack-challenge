@@ -30,7 +30,12 @@ export class DeliveryCreateComponent implements OnInit {
   constructor(private deliveriesService: DeliveryService, private http: Http) { }
 
   ngOnInit() {
-    this.deliveries = this.deliveriesService.getAllDeliveries();
+    this.deliveriesService.eventEmitterSelect.subscribe(
+      data => {
+        this.deliveries = data;
+      });
+
+    this.deliveriesService.getAllDeliveries();
   }
 
   onFindLocation() {
