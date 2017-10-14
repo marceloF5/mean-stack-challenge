@@ -20,6 +20,7 @@ export class DeliveryCreateComponent implements OnInit {
   private geo;
   private address;
   private delivery;
+  private addressWithoutNumber = false;
 
   @ViewChild('inputNameCustomer') inputNameCustomer: ElementRef;
   @ViewChild('inputWeight') inputWeight: ElementRef;
@@ -39,13 +40,15 @@ export class DeliveryCreateComponent implements OnInit {
   }
 
   onFindLocation() {
+    console.log(this.inputAddress.nativeElement.value);
     this.ADDRESS = this.inputAddress.nativeElement.value;
     this.http.get(`${this.URL} ${this.ADDRESS} ${this.KEY}`)
         .map(data => data.json())
         .subscribe(data => {
             if (data.results[0].address_components.length < 7) {
-                console.log(data);
+                this.addressWithoutNumber = true;
             } else {
+              this.addressWithoutNumber = false;
               const lat = data.results[0].geometry.location.lat;
               const lon = data.results[0].geometry.location.lng;
 
@@ -97,6 +100,7 @@ export class DeliveryCreateComponent implements OnInit {
   }
 
   onSubmit(form) {
+    console.log(form);
     this.delivery = new Delivery(4, form.value.customerName, form.value.weight, this.address);
     this.deliveriesService.saveDelivery(this.delivery);
     this.inputNameCustomer.nativeElement.value = '';

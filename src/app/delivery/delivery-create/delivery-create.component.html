@@ -1,32 +1,50 @@
 
 <form name="deliveryForm" #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <div class="form-group">
-        <input type="text" class="form-control" name="customerName" placeholder="Nome do cliente" ngModel #inputNameCustomer>
+    <div class="form-group"
+        [class.has-error]="!inputNameCustomer.valid && inputNameCustomer.touched">
+        <input type="text" class="form-control" name="customerName" placeholder="Nome do cliente" ngModel #inputNameCustomer #customerName="ngModel" required>
+        <div *ngIf="!customerName.valid && customerName.touched"
+            class="alert alert-danger" role="alert">
+            Nome do cliente é obrigatório</div>
     </div>
-    <div class="form-group">
-        <input type="text" class="form-control" name="weight" placeholder="Peso da entrega" ngModel #inputWeight>
+    <div class="form-group"
+        [class.has-error]="!inputWeight.valid && inputWeight.touched">
+        <input type="text" class="form-control" name="weight" placeholder="Peso da entrega" 
+                ngModel 
+                #inputWeight 
+                #weight="ngModel" 
+                required>
+        <div *ngIf="!weight.valid && weight.touched"
+            class="alert alert-danger" role="alert">
+            Peso é obrigatório</div>
     </div>
     <div class="form-group">
         <div class="input-group">
-            <input type="text" class="form-control" name="street" placeholder="Endereço do cliente" ngModel #inputAddress>
+            <input type="text" class="form-control" name="street" placeholder="Endereço do cliente" ngModel #inputAddress #street="ngModel" required> 
             <span class="input-group-btn">
                 <button type="button" class="btn btn-default" (click)="onFindLocation()">Buscar</button>
             </span>
         </div>
+        <div *ngIf="!street.valid && street.touched"
+            class="alert alert-danger" role="alert">
+            Endereço é obrigatório</div>
+        <div *ngIf="addressWithoutNumber"
+            class="alert alert-danger" role="alert">
+            Insira um endereço com número</div>
     </div>    
     <div class="form-group row">        
         <div class="col-md-6">
-            <input type="text" class="form-control" name="lat" placeholder="Latitude" disabled ngModel  #inputLat>
+            <input type="text" class="form-control" name="lat" placeholder="Latitude" readonly #inputLat>
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control" name="lon" placeholder="Longitude" disabled ngModel #inputLon>
+            <input type="text" class="form-control" name="lon" placeholder="Longitude" readonly ngModel #inputLon>
         </div>        
     </div>
 
     <div class="form-group">
         
-        <button type="submit" class="btn btn-success btn-block" name="send">CADASTRAR CLIENTE</button>    
-        <button type="button" class="btn btn-danger btn-block" name="delete" (click)="onDelRegister()">RESETAR CADASTRO</button>
+        <button type="submit" class="btn btn-success btn-block" name="send" [disabled]="!f.valid">Cadastrar Cliente</button>    
+        <button type="button" class="btn btn-danger btn-block" name="delete" (click)="onDelRegister()">Resetar Cadastro</button>
         
     </div>
 </form>
