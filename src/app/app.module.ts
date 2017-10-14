@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { DeliveryListComponent } from './delivery/delivery-list/delivery-list.component';
@@ -18,7 +19,8 @@ import { DeliveryService } from './delivery/delivery.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyC5yuNlNyonNUssojkeUnhzXk8Ke0OcScs'}),
+    HttpModule,
   ],
   providers: [DeliveryService],
   bootstrap: [AppComponent]

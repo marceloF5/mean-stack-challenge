@@ -1,3 +1,16 @@
+<agm-map 
+    [latitude]="lat" 
+    [longitude]="lng"
+    [zoom]="zoom"
+    [disableDefaultUI]=false
+    [zoomControl]="true">
+    <agm-marker 
+        *ngFor="let m of makers; let i = index"        
+        [latitude]="m.lat" 
+        [longitude]="m.lon"
+        [markerDraggable]="m.draggable">
+    </agm-marker>
+</agm-map>
 <p>Total de clientes: <span>{{ totalCustomers }}</span>; Peso total: <span>{{ totalWeight }}kg</span>;
   Ticket Médio*: <span> {{ avg }}</span></p>
 <table class="table table-hover">
@@ -6,10 +19,10 @@
           <th>Nome</th>
           <th>Rua</th>
           <th>Cidade</th>
-          <th>País:</th>
-          <th>Peso:</th>
-          <th>Lat:</th>
-          <th>Lng:</th>
+          <th>País</th>
+          <th>Peso</th>
+          <th>Lat</th>
+          <th>Lng</th>
       </tr>
   </thead>
   <tbody>

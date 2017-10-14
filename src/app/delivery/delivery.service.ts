@@ -4,8 +4,6 @@ import { Geo } from './delivery-class/geo';
 import { Address } from './delivery-class/address';
 import { Delivery } from './delivery-class/delivery';
 
-
-
 @Injectable()
 export class DeliveryService {
 
