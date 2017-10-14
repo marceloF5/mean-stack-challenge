@@ -29,7 +29,6 @@ export class DeliveryListComponent implements OnInit {
 
     this.deliveriesService.eventEmitterDelete.subscribe(
       data => {
-        console.log('ENTROU NO DELETE');
         this.deliveries = [];
         this.makers = [];
         this.totalWeight = 0;
@@ -39,7 +38,6 @@ export class DeliveryListComponent implements OnInit {
 
     this.deliveriesService.eventEmitterSelect.subscribe(
       data => {
-        console.log('ENTROU NO SELECT');
         console.log(data[1]);
         console.log(data.data.length);
         this.deliveries = data.data;
@@ -59,7 +57,6 @@ export class DeliveryListComponent implements OnInit {
 
     this.deliveriesService.eventEmitterCreate.subscribe(
       data => {
-        console.log('ENTROU NO CREATE');
         this.deliveriesService.getAllDeliveries();
       });
 
