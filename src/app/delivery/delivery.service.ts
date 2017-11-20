@@ -22,7 +22,7 @@ export class DeliveryService {
 
   getAllDeliveries() {
     this.http
-      .get('http://localhost:3000/delivery')
+      .get('/delivery')
       .map(data => data.json())
       .subscribe(data => {
         console.log(data);
@@ -32,7 +32,7 @@ export class DeliveryService {
 
   saveDelivery(delivery) {
     this.http
-        .post('http://localhost:3000/delivery', delivery)
+        .post('/delivery', delivery)
         .map(data => data.json())
         .subscribe(data => {
           this.eventEmitterCreate.emit();
@@ -41,7 +41,7 @@ export class DeliveryService {
 
   delAllDeliveries() {
     this.http
-        .delete('http://localhost:3000/delivery')
+        .delete('/delivery')
         .map(data => data.json())
         .subscribe(data => {
           this.eventEmitterDelete.emit();
